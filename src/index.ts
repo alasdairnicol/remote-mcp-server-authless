@@ -10,6 +10,29 @@ export class MyMCP extends McpAgent {
 	});
 
 	async init() {
+		// Simple Menu tool
+		this.server.tool(
+			"getMenu",
+			{ item: z.enum(["burger", "milkshake"]) },
+			async ({ item }) => {
+			  const menu = {
+				burger: [
+				  "cheese burger",
+				  "double beef burger",
+				  "veggie burger"
+				],
+				milkshake: [
+				  "strawberry",
+				  "chocolate"
+				]
+			  };
+
+			  return {
+				content: menu[item].map((text) => ({ type: "text", text }))
+			  };
+			}
+		  );
+
 		// Simple addition tool
 		this.server.tool(
 			"add",
